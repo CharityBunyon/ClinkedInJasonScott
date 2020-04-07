@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ClinkedInJasonScott.DataAccess;
+using ClinkedInJasonScott.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,7 +22,7 @@ namespace ClinkedInJasonScott.Controllers
             var existingPrisoner = _repository.GetByName(prisonerToAdd.Name);
             if (existingPrisoner == null)
             {
-                _repository.Add(prisonerToAdd);
+                _repository.AddPrisoner(prisonerToAdd);
                 return Created("", prisonerToAdd);
             }
 
@@ -31,7 +33,7 @@ namespace ClinkedInJasonScott.Controllers
         [HttpGet]
         public IActionResult GetAllPrisoners()
         {
-            var allPrisoners = _repository.GetAll();
+            var allPrisoners = _repository.GetAllPrisoners();
 
             return Ok(allPrisoners);
         }
