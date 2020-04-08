@@ -11,5 +11,28 @@ namespace ClinkedInJasonScott.Models
         public string Name { get; set; }
         public int Age { get; set; }
 
+        public List<Interest> Interests { get; set; }
+        public List<Services> Services { get; set; }
+
+    }
+
+    public enum Interest
+    {
+        Music,
+        Pets,
+        Laundry,
+        Crafting,
+        Stealing,
+        Exercise
+    }
+
+    public enum Services
+    {
+        Shanking,
+        Smuggling,
+        Tatter,
+        Protection,
+        Matchmaking,
+        Minister
     }
 }
