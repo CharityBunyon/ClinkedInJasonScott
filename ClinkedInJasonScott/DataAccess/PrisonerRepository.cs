@@ -67,19 +67,25 @@ namespace ClinkedInJasonScott.DataAccess
                         prisonersInterests.Add(prisoner);
                     }
                 }
-
-
-                /* foreach (var interest in Enum.GetValues(typeof(Interest)))
-                 {
-                     if (interest.ToString() == prisonerInterest)
-                     {
-                         prisonersInterests.Add(prisoner.Interest.Contains(interest));
-
-                     }
-                 }*/
             }
-
             return prisonersInterests;
+        }
+
+        public List<Prisoner> GetByServices(string prisonerService)
+        {
+            List<Prisoner> prisonersServices = new List<Prisoner>();
+
+            foreach (var prisoner in _prisoners)
+            {
+                foreach (var service in prisoner.Services)
+                {
+                    if (service.ToString() == prisonerService)
+                    {
+                        prisonersServices.Add(prisoner);
+                    }
+                }
+            }
+            return prisonersServices;
         }
     }
 }
