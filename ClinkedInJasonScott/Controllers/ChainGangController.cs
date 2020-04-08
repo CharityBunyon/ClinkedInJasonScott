@@ -38,17 +38,28 @@ namespace ClinkedInJasonScott.Controllers
             return Ok(allPrisoners);
         }
 
-        [HttpGet("{interests}")]
+        [HttpGet("interest/{interests}")]
         public IActionResult GetPrisonerInterests(string interests)
         {
             var allInterests = _repository.GetByInterest(interests);
-            if ( allInterests == null)
+            if (allInterests.Count > 0)
             {
-                return NotFound("Prisoner doesn't have similar interests.");
-
+                return Ok(allInterests);
             }
 
-            return Ok(allInterests);
+            return NotFound("Prisoner doesn't have similar interests.");
+        }
+
+        [HttpGet("service/{services}")]
+        public IActionResult GetPrisonerServices(string services)
+        {
+            var allServices = _repository.GetByServices(services);
+            if (allServices.Count > 0)
+            {
+                return Ok(allServices);
+            }
+
+            return NotFound("Prisoner doesn't have similar services.");
 
         }
     }
