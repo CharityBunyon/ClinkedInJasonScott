@@ -64,19 +64,14 @@ namespace ClinkedInJasonScott.Controllers
         }
 
         //api/chaingang
-        [HttpPost("friendshipforever/{id}")]
-        public IActionResult AddFriend(Prisoner currentPrisoner, int id)
+        [HttpGet("friendshipforever/{id2:int}/{id:int}")]
+        public IActionResult AddFriend(int id2, int id)
         {
-            // need more verification on whose ID
-            // we are getting so that we are not adding our id to friends list
-            // make sure that the friend id is actually a user
-
-            // making sure current prisoner isn't trying to add itself
-            // making sure actual friend id is a member of the network
             var friend = _repository.GetPrisonerById(id);
+            var currentPrisoner = _repository.GetPrisonerById(id2);
             if (currentPrisoner.Id != id && friend != null)
             {
-                _repository.AddFriend(currentPrisoner, friend.Id);
+                _repository.AddFriend(currentPrisoner, friend);
                 return Ok(currentPrisoner);
             }
 

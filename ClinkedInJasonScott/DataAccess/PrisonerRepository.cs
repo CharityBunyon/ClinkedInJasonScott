@@ -26,7 +26,8 @@ namespace ClinkedInJasonScott.DataAccess
                 Age = 21,
                 Id = 2,
                 Interests = new List<Interest>{ Interest.Pets, Interest.Crafting, Interest.Laundry },
-                Services = new List<Services>{ Services.Shanking, Services.Tatter}
+                Services = new List<Services>{ Services.Shanking, Services.Tatter},
+                Friends = new List<Prisoner>()
              },
 
             new Prisoner
@@ -36,6 +37,7 @@ namespace ClinkedInJasonScott.DataAccess
                 Id = 3,
                 Interests = new List<Interest>{ Interest.Exercise, Interest.Laundry },
                 Services = new List<Services>{ Services.Protection, Services.Smuggling, Services.Shanking},
+                Friends = new List<Prisoner>()
             },
 
             new Prisoner
@@ -44,7 +46,8 @@ namespace ClinkedInJasonScott.DataAccess
                 Age = 40,
                 Id = 4,
                 Interests = new List<Interest>{ Interest.Crafting, Interest.Music, Interest.Pets, Interest.Stealing },
-                Services = new List<Services>{ Services.Minister, Services.Matchmaking}
+                Services = new List<Services>{ Services.Minister, Services.Matchmaking},
+                Friends = new List<Prisoner>()
             },
             
         };
@@ -64,11 +67,9 @@ namespace ClinkedInJasonScott.DataAccess
             _prisoners.Add(newPrisoner);
         }
 
-        public void AddFriend(Prisoner prisoner, int friendId)
+        public void AddFriend(Prisoner prisoner, Prisoner friend)
         {
-            
-            var friendToAdd = _prisoners.First(p => p.Id == friendId);
-            prisoner.Friends.Add(friendToAdd);
+            prisoner.Friends.Add(friend);
         }
 
         public Prisoner GetByName(string prisonerName)
