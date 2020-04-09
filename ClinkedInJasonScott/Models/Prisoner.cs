@@ -14,6 +14,9 @@ namespace ClinkedInJasonScott.Models
         public List<Interest> Interests { get; set; }
         public List<Services> Services { get; set; }
 
+        //Add list of Friends
+        public List<Prisoner> Friends { get; set; }
+
     }
 
     public enum Interest
@@ -35,4 +38,5 @@ namespace ClinkedInJasonScott.Models
         Matchmaking,
         Minister
     }
+    
 }
