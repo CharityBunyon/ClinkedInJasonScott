@@ -16,7 +16,8 @@ namespace ClinkedInJasonScott.DataAccess
                 Age = 47,
                 Id = 1, 
                 Interests = new List<Interest>{ Interest.Crafting, Interest.Music, Interest.Pets, Interest.Stealing },
-                Services = new List<Services>{ Services.Minister, Services.Matchmaking}
+                Services = new List<Services>{ Services.Minister, Services.Matchmaking},
+                Friends = new List<Prisoner>()
             },
 
             new Prisoner
@@ -34,19 +35,40 @@ namespace ClinkedInJasonScott.DataAccess
                 Age = 61,
                 Id = 3,
                 Interests = new List<Interest>{ Interest.Exercise, Interest.Laundry },
-                Services = new List<Services>{ Services.Protection, Services.Smuggling, Services.Shanking}
-            }
+                Services = new List<Services>{ Services.Protection, Services.Smuggling, Services.Shanking},
+            },
+
+            new Prisoner
+            {
+                Name = "Fred",
+                Age = 40,
+                Id = 4,
+                Interests = new List<Interest>{ Interest.Crafting, Interest.Music, Interest.Pets, Interest.Stealing },
+                Services = new List<Services>{ Services.Minister, Services.Matchmaking}
+            },
+            
         };
 
         public List<Prisoner> GetAllPrisoners()
         {
             return _prisoners;
         }
-
+        // getting prisoner by ID
+        public Prisoner GetPrisonerById(int prisonerId)
+        {
+            return _prisoners.First(p => p.Id == prisonerId);
+        }
         public void AddPrisoner(Prisoner newPrisoner)
         {
             newPrisoner.Id = _prisoners.Max(x => x.Id) + 1;
             _prisoners.Add(newPrisoner);
+        }
+
+        public void AddFriend(Prisoner prisoner, int friendId)
+        {
+            
+            var friendToAdd = _prisoners.First(p => p.Id == friendId);
+            prisoner.Friends.Add(friendToAdd);
         }
 
         public Prisoner GetByName(string prisonerName)

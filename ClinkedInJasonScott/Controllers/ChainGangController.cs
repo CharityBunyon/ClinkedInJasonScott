@@ -62,5 +62,25 @@ namespace ClinkedInJasonScott.Controllers
             return NotFound("Prisoner doesn't have similar services.");
 
         }
+
+        //api/chaingang
+        [HttpPost("friendshipforever/{id}")]
+        public IActionResult AddFriend(Prisoner currentPrisoner, int id)
+        {
+            // need more verification on whose ID
+            // we are getting so that we are not adding our id to friends list
+            // make sure that the friend id is actually a user
+
+            // making sure current prisoner isn't trying to add itself
+            // making sure actual friend id is a member of the network
+            var friend = _repository.GetPrisonerById(id);
+            if (currentPrisoner.Id != id && friend != null)
+            {
+                _repository.AddFriend(currentPrisoner, friend.Id);
+                return Ok(currentPrisoner);
+            }
+
+            return NotFound("Could not find your Friend.");
+        }
     }
 }
