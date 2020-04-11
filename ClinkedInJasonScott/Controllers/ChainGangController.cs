@@ -106,5 +106,29 @@ namespace ClinkedInJasonScott.Controllers
 
             return Ok(updateInterest);
         }
+
+        [HttpGet("removeinterest/{id}/{interest}")]
+        public IActionResult RemoveInterest(int id, Interest interest)
+        {
+            var updateInterest = _repository.RemoveInterest(id, interest);
+
+            return Ok(updateInterest);
+        }
+
+        [HttpGet("addservice/{id}/{service}")]
+        public IActionResult AddService(int id, Services service)
+        {
+            var updateService = _repository.AddService(id, service);
+
+            return Ok(updateService);
+        }
+
+        [HttpGet("removeservice/{id}/{service}")]
+        public IActionResult RemoveService(int id, Services service)
+        {
+            var updateService = _repository.RemoveService(id, service);
+
+            return Ok(updateService);
+        }
     }
 }

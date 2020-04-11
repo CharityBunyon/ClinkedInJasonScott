@@ -135,16 +135,35 @@ namespace ClinkedInJasonScott.DataAccess
             return ($"{prisoner.Name} has {daysDiff} days left to complete their sentence.");
         }
 
-        public Prisoner AddInterest(int Id, Interest interestId)
+        public Prisoner AddInterest(int id, Interest interestId)
         {
-            var prisonerToUpdate = GetPrisonerById(Id);
-
+            var prisonerToUpdate = GetPrisonerById(id);
             prisonerToUpdate.Interests.Add(interestId);
-
             List<Interest> uniqueInterests = prisonerToUpdate.Interests.Distinct().ToList();
-
             prisonerToUpdate.Interests = uniqueInterests;
+            return prisonerToUpdate;
+        }
 
+        public Prisoner RemoveInterest(int id, Interest interestId)
+        {
+            var prisonerToUpdate = GetPrisonerById(id);
+            prisonerToUpdate.Interests.Remove(interestId);
+            return prisonerToUpdate;
+        }
+
+        public Prisoner AddService(int id, Services serviceId)
+        {
+            var prisonerToUpdate = GetPrisonerById(id);
+            prisonerToUpdate.Services.Add(serviceId);
+            List<Services> uniqueServices = prisonerToUpdate.Services.Distinct().ToList();
+            prisonerToUpdate.Services = uniqueServices;
+            return prisonerToUpdate;
+        }
+
+        public Prisoner RemoveService(int id, Services serviceId)
+        {
+            var prisonerToUpdate = GetPrisonerById(id);
+            prisonerToUpdate.Services.Remove(serviceId);
             return prisonerToUpdate;
         }
     }
