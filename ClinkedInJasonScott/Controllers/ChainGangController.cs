@@ -91,5 +91,12 @@ namespace ClinkedInJasonScott.Controllers
 
             return NotFound("Could not find your Enemy.");
         }
+
+        [HttpGet("sentence/{id}")]
+        public IActionResult GetPrisonerSentence(int id)
+        {
+            var remainingDays = _repository.GetRemainingDays(id);
+            return Ok(remainingDays);
+        }
     }
 }
