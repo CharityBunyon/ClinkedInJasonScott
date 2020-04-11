@@ -78,6 +78,21 @@ namespace ClinkedInJasonScott.Controllers
             return NotFound("Could not find your Friend.");
         }
 
+        [HttpGet("viewfriends/{id}")]
+        public IActionResult ViewFriends(int id)
+        {
+            var friendsList = _repository.GetFriendsById(id);
+            return Ok(friendsList);
+        }
+
+
+        [HttpGet("viewenemies/{id}")]
+        public IActionResult ViewEnemeis(int id)
+        {
+            var enemiesList = _repository.GetEnemiesById(id);
+            return Ok(enemiesList);
+        }
+
         [HttpGet("enemies/{id2:int}/{id:int}")]
         public IActionResult AddEnemy(int id2, int id)
         {
