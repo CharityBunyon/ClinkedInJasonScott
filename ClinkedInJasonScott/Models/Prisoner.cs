@@ -16,7 +16,7 @@ namespace ClinkedInJasonScott.Models
 
         //Add list of Friends
         public List<Prisoner> Friends { get; set; }
-
+        public List<Prisoner> Enemies { get; set; }
     }
 
     public enum Interest

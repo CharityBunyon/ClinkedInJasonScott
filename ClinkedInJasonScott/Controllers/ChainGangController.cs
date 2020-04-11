@@ -77,5 +77,19 @@ namespace ClinkedInJasonScott.Controllers
 
             return NotFound("Could not find your Friend.");
         }
+
+        [HttpGet("enemies/{id2:int}/{id:int}")]
+        public IActionResult AddEnemy(int id2, int id)
+        {
+            var enemy = _repository.GetPrisonerById(id);
+            var currentPrisoner = _repository.GetPrisonerById(id2);
+            if (currentPrisoner.Id != id && enemy != null)
+            {
+                _repository.AddEnemy(currentPrisoner, enemy);
+                return Ok(currentPrisoner);
+            }
+
+            return NotFound("Could not find your Enemy.");
+        }
     }
 }
