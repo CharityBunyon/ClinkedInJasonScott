@@ -17,8 +17,8 @@ namespace ClinkedInJasonScott.DataAccess
                 Id = 1,
                 Interests = new List<Interest>{ Interest.Crafting, Interest.Music, Interest.Pets, Interest.Stealing },
                 Services = new List<Services>{ Services.Minister, Services.Matchmaking},
-                Friends = new List<Prisoner>(),
-                Enemies = new List<Prisoner>(),
+                Friends = new List<int>(),
+                Enemies = new List<int>(),
                 SentenceComplete = new DateTime(2020,12,25)
             },
 
@@ -29,8 +29,8 @@ namespace ClinkedInJasonScott.DataAccess
                 Id = 2,
                 Interests = new List<Interest>{ Interest.Pets, Interest.Crafting, Interest.Laundry },
                 Services = new List<Services>{ Services.Shanking, Services.Tatter},
-                Friends = new List<Prisoner>(),
-                Enemies = new List<Prisoner>(),
+                Friends = new List<int>(),
+                Enemies = new List<int>(),
                 SentenceComplete = new DateTime(2025,1,22)
              },
 
@@ -41,8 +41,8 @@ namespace ClinkedInJasonScott.DataAccess
                 Id = 3,
                 Interests = new List<Interest>{ Interest.Exercise, Interest.Laundry },
                 Services = new List<Services>{ Services.Protection, Services.Smuggling, Services.Shanking},
-                Friends = new List<Prisoner>(),
-                Enemies = new List<Prisoner>(),
+                Friends = new List<int>(),
+                Enemies = new List<int>(),
                 SentenceComplete = new DateTime(2021,2,5)
             },
 
@@ -53,8 +53,8 @@ namespace ClinkedInJasonScott.DataAccess
                 Id = 4,
                 Interests = new List<Interest>{ Interest.Crafting, Interest.Music, Interest.Pets, Interest.Stealing },
                 Services = new List<Services>{ Services.Minister, Services.Matchmaking},
-                Friends = new List<Prisoner>(),
-                Enemies = new List<Prisoner>(),
+                Friends = new List<int>(),
+                Enemies = new List<int>(),
                 SentenceComplete = new DateTime(2050,8,14)
             },
             
@@ -77,12 +77,37 @@ namespace ClinkedInJasonScott.DataAccess
 
         public void AddFriend(Prisoner prisoner, Prisoner friend)
         {
-            prisoner.Friends.Add(friend);
+            prisoner.Friends.Add(friend.Id);
+            friend.Friends.Add(prisoner.Id);
         }
+
+        public List<Prisoner> GetFriendsById(int id)
+        {
+            var prisoner = GetPrisonerById(id);
+            var myFriends = new List<Prisoner>();
+            foreach ( var friend in prisoner.Friends)
+            {
+                myFriends.Add(GetPrisonerById(friend));
+            }
+            return myFriends;
+        }
+
 
         public void AddEnemy(Prisoner prisoner, Prisoner enemy)
         {
-            prisoner.Enemies.Add(enemy);
+            prisoner.Enemies.Add(enemy.Id);
+            enemy.Enemies.Add(prisoner.Id);
+        }
+
+        public List<Prisoner> GetEnemiesById(int id)
+        {
+            var prisoner = GetPrisonerById(id);
+            var myEnemies = new List<Prisoner>();
+            foreach (var enemy in prisoner.Enemies)
+            {
+                myEnemies.Add(GetPrisonerById(enemy));
+            }
+            return myEnemies;
         }
 
         public Prisoner GetByName(string prisonerName)

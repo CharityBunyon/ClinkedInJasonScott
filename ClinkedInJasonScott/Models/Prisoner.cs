@@ -15,8 +15,8 @@ namespace ClinkedInJasonScott.Models
         public List<Services> Services { get; set; }
 
         //Add list of Friends
-        public List<Prisoner> Friends { get; set; }
-        public List<Prisoner> Enemies { get; set; }
+        public List<int> Friends { get; set; }
+        public List<int> Enemies { get; set; }
 
         public DateTime SentenceComplete { get; set; }
     }
