@@ -17,7 +17,8 @@ namespace ClinkedInJasonScott.DataAccess
                 Id = 1, 
                 Interests = new List<Interest>{ Interest.Crafting, Interest.Music, Interest.Pets, Interest.Stealing },
                 Services = new List<Services>{ Services.Minister, Services.Matchmaking},
-                Friends = new List<Prisoner>()
+                Friends = new List<Prisoner>(),
+                Enemies = new List<Prisoner>()
             },
 
             new Prisoner
@@ -27,7 +28,8 @@ namespace ClinkedInJasonScott.DataAccess
                 Id = 2,
                 Interests = new List<Interest>{ Interest.Pets, Interest.Crafting, Interest.Laundry },
                 Services = new List<Services>{ Services.Shanking, Services.Tatter},
-                Friends = new List<Prisoner>()
+                Friends = new List<Prisoner>(),
+                Enemies = new List<Prisoner>()
              },
 
             new Prisoner
@@ -37,7 +39,8 @@ namespace ClinkedInJasonScott.DataAccess
                 Id = 3,
                 Interests = new List<Interest>{ Interest.Exercise, Interest.Laundry },
                 Services = new List<Services>{ Services.Protection, Services.Smuggling, Services.Shanking},
-                Friends = new List<Prisoner>()
+                Friends = new List<Prisoner>(),
+                Enemies = new List<Prisoner>()
             },
 
             new Prisoner
@@ -47,7 +50,8 @@ namespace ClinkedInJasonScott.DataAccess
                 Id = 4,
                 Interests = new List<Interest>{ Interest.Crafting, Interest.Music, Interest.Pets, Interest.Stealing },
                 Services = new List<Services>{ Services.Minister, Services.Matchmaking},
-                Friends = new List<Prisoner>()
+                Friends = new List<Prisoner>(),
+                Enemies = new List<Prisoner>()
             },
             
         };
@@ -70,6 +74,11 @@ namespace ClinkedInJasonScott.DataAccess
         public void AddFriend(Prisoner prisoner, Prisoner friend)
         {
             prisoner.Friends.Add(friend);
+        }
+
+        public void AddEnemy(Prisoner prisoner, Prisoner enemy)
+        {
+            prisoner.Enemies.Add(enemy);
         }
 
         public Prisoner GetByName(string prisonerName)
