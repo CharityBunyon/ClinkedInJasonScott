@@ -134,5 +134,18 @@ namespace ClinkedInJasonScott.DataAccess
 
             return ($"{prisoner.Name} has {daysDiff} days left to complete their sentence.");
         }
+
+        public Prisoner AddInterest(int Id, Interest interestId)
+        {
+            var prisonerToUpdate = GetPrisonerById(Id);
+
+            prisonerToUpdate.Interests.Add(interestId);
+
+            List<Interest> uniqueInterests = prisonerToUpdate.Interests.Distinct().ToList();
+
+            prisonerToUpdate.Interests = uniqueInterests;
+
+            return prisonerToUpdate;
+        }
     }
 }

@@ -98,5 +98,13 @@ namespace ClinkedInJasonScott.Controllers
             var remainingDays = _repository.GetRemainingDays(id);
             return Ok(remainingDays);
         }
+
+        [HttpGet("addinterest/{id}/{interest}")]
+        public IActionResult AddInterest(int id, Interest interest)
+        {
+            var updateInterest = _repository.AddInterest(id, interest);
+
+            return Ok(updateInterest);
+        }
     }
 }
