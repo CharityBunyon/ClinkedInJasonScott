@@ -150,5 +150,21 @@ namespace ClinkedInJasonScott.DataAccess
             prisonerToUpdate.Interests.Remove(interestId);
             return prisonerToUpdate;
         }
+
+        public Prisoner AddService(int id, Services serviceId)
+        {
+            var prisonerToUpdate = GetPrisonerById(id);
+            prisonerToUpdate.Services.Add(serviceId);
+            List<Services> uniqueServices = prisonerToUpdate.Services.Distinct().ToList();
+            prisonerToUpdate.Services = uniqueServices;
+            return prisonerToUpdate;
+        }
+
+        public Prisoner RemoveService(int id, Services serviceId)
+        {
+            var prisonerToUpdate = GetPrisonerById(id);
+            prisonerToUpdate.Services.Remove(serviceId);
+            return prisonerToUpdate;
+        }
     }
 }
