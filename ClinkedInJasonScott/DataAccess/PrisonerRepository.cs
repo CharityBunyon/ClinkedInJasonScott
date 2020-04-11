@@ -14,11 +14,12 @@ namespace ClinkedInJasonScott.DataAccess
             {
                 Name = "Bones",
                 Age = 47,
-                Id = 1, 
+                Id = 1,
                 Interests = new List<Interest>{ Interest.Crafting, Interest.Music, Interest.Pets, Interest.Stealing },
                 Services = new List<Services>{ Services.Minister, Services.Matchmaking},
                 Friends = new List<Prisoner>(),
-                Enemies = new List<Prisoner>()
+                Enemies = new List<Prisoner>(),
+                SentenceComplete = new DateTime(2020,12,25)
             },
 
             new Prisoner
@@ -29,7 +30,8 @@ namespace ClinkedInJasonScott.DataAccess
                 Interests = new List<Interest>{ Interest.Pets, Interest.Crafting, Interest.Laundry },
                 Services = new List<Services>{ Services.Shanking, Services.Tatter},
                 Friends = new List<Prisoner>(),
-                Enemies = new List<Prisoner>()
+                Enemies = new List<Prisoner>(),
+                SentenceComplete = new DateTime(2025,1,22)
              },
 
             new Prisoner
@@ -40,7 +42,8 @@ namespace ClinkedInJasonScott.DataAccess
                 Interests = new List<Interest>{ Interest.Exercise, Interest.Laundry },
                 Services = new List<Services>{ Services.Protection, Services.Smuggling, Services.Shanking},
                 Friends = new List<Prisoner>(),
-                Enemies = new List<Prisoner>()
+                Enemies = new List<Prisoner>(),
+                SentenceComplete = new DateTime(2021,2,5)
             },
 
             new Prisoner
@@ -51,7 +54,8 @@ namespace ClinkedInJasonScott.DataAccess
                 Interests = new List<Interest>{ Interest.Crafting, Interest.Music, Interest.Pets, Interest.Stealing },
                 Services = new List<Services>{ Services.Minister, Services.Matchmaking},
                 Friends = new List<Prisoner>(),
-                Enemies = new List<Prisoner>()
+                Enemies = new List<Prisoner>(),
+                SentenceComplete = new DateTime(2050,8,14)
             },
             
         };
@@ -118,6 +122,17 @@ namespace ClinkedInJasonScott.DataAccess
                 }
             }
             return prisonersServices;
+        }
+
+        public string GetRemainingDays(int id)
+        {
+            DateTime today = DateTime.Today;
+
+            var prisoner = GetPrisonerById(id);
+
+            int daysDiff = ((TimeSpan)(prisoner.SentenceComplete - today)).Days;
+
+            return ($"{prisoner.Name} has {daysDiff} days left to complete their sentence.");
         }
     }
 }
