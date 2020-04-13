@@ -60,27 +60,42 @@ namespace ClinkedInJasonScott.DataAccess
             
         };
 
+        // Get all prisoners
         public List<Prisoner> GetAllPrisoners()
         {
             return _prisoners;
         }
-        // getting prisoner by ID
+
+
+        // Get prisoner by ID
         public Prisoner GetPrisonerById(int prisonerId)
         {
             return _prisoners.First(p => p.Id == prisonerId);
         }
+
+        // Get prisoner by Name
+        public Prisoner GetByName(string prisonerName)
+        {
+            return _prisoners.FirstOrDefault(p => p.Name == prisonerName);
+        }
+
+        // Add a prisoner
         public void AddPrisoner(Prisoner newPrisoner)
         {
             newPrisoner.Id = _prisoners.Max(x => x.Id) + 1;
             _prisoners.Add(newPrisoner);
         }
 
+
+
+        // Add a friend
         public void AddFriend(Prisoner prisoner, Prisoner friend)
         {
             prisoner.Friends.Add(friend.Id);
             friend.Friends.Add(prisoner.Id);
         }
 
+        //Viewing A Prisoners Friends - pass in prisoner id and put all friends in myfriends list
         public List<Prisoner> GetFriendsById(int id)
         {
             var prisoner = GetPrisonerById(id);
@@ -93,12 +108,16 @@ namespace ClinkedInJasonScott.DataAccess
         }
 
 
+        // Adding an Enemy
+
         public void AddEnemy(Prisoner prisoner, Prisoner enemy)
         {
             prisoner.Enemies.Add(enemy.Id);
             enemy.Enemies.Add(prisoner.Id);
         }
 
+
+        // Viewing an prisoner enemies
         public List<Prisoner> GetEnemiesById(int id)
         {
             var prisoner = GetPrisonerById(id);
@@ -110,11 +129,9 @@ namespace ClinkedInJasonScott.DataAccess
             return myEnemies;
         }
 
-        public Prisoner GetByName(string prisonerName)
-        {
-            return _prisoners.FirstOrDefault(p => p.Name == prisonerName);
-        }
+        
 
+        // Get all prisoners with similar interests
         public List<Prisoner> GetByInterest(string prisonerInterest)
         { 
             List<Prisoner> prisonersInterests = new List<Prisoner>();
@@ -130,8 +147,30 @@ namespace ClinkedInJasonScott.DataAccess
                 }
             }
             return prisonersInterests;
+         
         }
 
+        // Add interests
+        public Prisoner AddInterest(int id, Interest interestId)
+        {
+            var prisonerToUpdate = GetPrisonerById(id);
+            prisonerToUpdate.Interests.Add(interestId);
+            List<Interest> uniqueInterests = prisonerToUpdate.Interests.Distinct().ToList();
+            prisonerToUpdate.Interests = uniqueInterests;
+            return prisonerToUpdate;
+        }
+
+        // Remove interests
+        public Prisoner RemoveInterest(int id, Interest interestId)
+        {
+            var prisonerToUpdate = GetPrisonerById(id);
+            prisonerToUpdate.Interests.Remove(interestId);
+            return prisonerToUpdate;
+        }
+
+
+
+        // Get all prisoners with similar services
         public List<Prisoner> GetByServices(string prisonerService)
         {
             List<Prisoner> prisonersServices = new List<Prisoner>();
@@ -149,33 +188,9 @@ namespace ClinkedInJasonScott.DataAccess
             return prisonersServices;
         }
 
-        public string GetRemainingDays(int id)
-        {
-            DateTime today = DateTime.Today;
 
-            var prisoner = GetPrisonerById(id);
 
-            int daysDiff = ((TimeSpan)(prisoner.SentenceComplete - today)).Days;
-
-            return ($"{prisoner.Name} has {daysDiff} days left to complete their sentence.");
-        }
-
-        public Prisoner AddInterest(int id, Interest interestId)
-        {
-            var prisonerToUpdate = GetPrisonerById(id);
-            prisonerToUpdate.Interests.Add(interestId);
-            List<Interest> uniqueInterests = prisonerToUpdate.Interests.Distinct().ToList();
-            prisonerToUpdate.Interests = uniqueInterests;
-            return prisonerToUpdate;
-        }
-
-        public Prisoner RemoveInterest(int id, Interest interestId)
-        {
-            var prisonerToUpdate = GetPrisonerById(id);
-            prisonerToUpdate.Interests.Remove(interestId);
-            return prisonerToUpdate;
-        }
-
+        //Add services
         public Prisoner AddService(int id, Services serviceId)
         {
             var prisonerToUpdate = GetPrisonerById(id);
@@ -185,11 +200,26 @@ namespace ClinkedInJasonScott.DataAccess
             return prisonerToUpdate;
         }
 
+
+        // Remove services
         public Prisoner RemoveService(int id, Services serviceId)
         {
             var prisonerToUpdate = GetPrisonerById(id);
             prisonerToUpdate.Services.Remove(serviceId);
             return prisonerToUpdate;
+        }
+
+
+        // Get a Prisoners remaining days in prison
+        public string GetRemainingDays(int id)
+        {
+            DateTime today = DateTime.Today;
+
+            var prisoner = GetPrisonerById(id);
+
+            int daysDiff = ((TimeSpan)(prisoner.SentenceComplete - today)).Days;
+
+            return ($"{prisoner.Name} has {daysDiff} days left to complete their sentence.");
         }
     }
 }

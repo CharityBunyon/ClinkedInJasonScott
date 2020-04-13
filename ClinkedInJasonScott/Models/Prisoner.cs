@@ -11,13 +11,15 @@ namespace ClinkedInJasonScott.Models
         public string Name { get; set; }
         public int Age { get; set; }
 
+        //Lists
         public List<Interest> Interests { get; set; }
         public List<Services> Services { get; set; }
 
-        //Add list of Friends
+       
         public List<int> Friends { get; set; }
         public List<int> Enemies { get; set; }
 
+        // Sentence Time
         public DateTime SentenceComplete { get; set; }
     }
 

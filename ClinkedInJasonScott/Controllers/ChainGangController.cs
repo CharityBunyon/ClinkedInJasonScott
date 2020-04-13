@@ -13,9 +13,13 @@ namespace ClinkedInJasonScott.Controllers
     [ApiController]
     public class ChainGangController : ControllerBase
     {
+
+        //List where all prisoners are housed
         PrisonerRepository _repository = new PrisonerRepository();
 
+
         //api/chaingang
+        // Add Prisoner
         [HttpPost]
         public IActionResult AddPrisoner(Prisoner prisonerToAdd)
         {
@@ -30,6 +34,7 @@ namespace ClinkedInJasonScott.Controllers
         }
 
         // api/chaingang
+        //Get all prisoners
         [HttpGet]
         public IActionResult GetAllPrisoners()
         {
@@ -38,32 +43,9 @@ namespace ClinkedInJasonScott.Controllers
             return Ok(allPrisoners);
         }
 
-        [HttpGet("interest/{interests}")]
-        public IActionResult GetPrisonerInterests(string interests)
-        {
-            var allInterests = _repository.GetByInterest(interests);
-            if (allInterests.Count > 0)
-            {
-                return Ok(allInterests);
-            }
-
-            return NotFound("Prisoner doesn't have similar interests.");
-        }
-
-        [HttpGet("service/{services}")]
-        public IActionResult GetPrisonerServices(string services)
-        {
-            var allServices = _repository.GetByServices(services);
-            if (allServices.Count > 0)
-            {
-                return Ok(allServices);
-            }
-
-            return NotFound("Prisoner doesn't have similar services.");
-
-        }
 
         //api/chaingang
+        //Adding a Friend
         [HttpGet("friendshipforever/{id2:int}/{id:int}")]
         public IActionResult AddFriend(int id2, int id)
         {
@@ -78,6 +60,8 @@ namespace ClinkedInJasonScott.Controllers
             return NotFound("Could not find your Friend.");
         }
 
+
+        // Viewing Friends
         [HttpGet("viewfriends/{id}")]
         public IActionResult ViewFriends(int id)
         {
@@ -86,13 +70,10 @@ namespace ClinkedInJasonScott.Controllers
         }
 
 
-        [HttpGet("viewenemies/{id}")]
-        public IActionResult ViewEnemeis(int id)
-        {
-            var enemiesList = _repository.GetEnemiesById(id);
-            return Ok(enemiesList);
-        }
 
+
+
+        // Adding an Enemy
         [HttpGet("enemies/{id2:int}/{id:int}")]
         public IActionResult AddEnemy(int id2, int id)
         {
@@ -107,13 +88,33 @@ namespace ClinkedInJasonScott.Controllers
             return NotFound("Could not find your Enemy.");
         }
 
-        [HttpGet("sentence/{id}")]
-        public IActionResult GetPrisonerSentence(int id)
+
+        // Viewing Enemies
+        [HttpGet("viewenemies/{id}")]
+        public IActionResult ViewEnemeis(int id)
         {
-            var remainingDays = _repository.GetRemainingDays(id);
-            return Ok(remainingDays);
+            var enemiesList = _repository.GetEnemiesById(id);
+            return Ok(enemiesList);
         }
 
+
+
+
+        // Getting the similar interests
+        [HttpGet("interest/{interests}")]
+        public IActionResult GetPrisonerInterests(string interests)
+        {
+            var allInterests = _repository.GetByInterest(interests);
+            if (allInterests.Count > 0)
+            {
+                return Ok(allInterests);
+            }
+
+            return NotFound("Prisoner doesn't have similar interests.");
+        }
+
+
+        // Add Interest
         [HttpGet("addinterest/{id}/{interest}")]
         public IActionResult AddInterest(int id, Interest interest)
         {
@@ -122,6 +123,7 @@ namespace ClinkedInJasonScott.Controllers
             return Ok(updateInterest);
         }
 
+        //Remove Interest
         [HttpGet("removeinterest/{id}/{interest}")]
         public IActionResult RemoveInterest(int id, Interest interest)
         {
@@ -130,6 +132,26 @@ namespace ClinkedInJasonScott.Controllers
             return Ok(updateInterest);
         }
 
+
+
+
+
+        // Getting the similar services
+        [HttpGet("service/{services}")]
+        public IActionResult GetPrisonerServices(string services)
+        {
+            var allServices = _repository.GetByServices(services);
+            if (allServices.Count > 0)
+            {
+                return Ok(allServices);
+            }
+
+            return NotFound("Prisoner doesn't have similar services.");
+
+        }
+
+
+        // Add Service
         [HttpGet("addservice/{id}/{service}")]
         public IActionResult AddService(int id, Services service)
         {
@@ -138,12 +160,22 @@ namespace ClinkedInJasonScott.Controllers
             return Ok(updateService);
         }
 
+        // Remove Service
         [HttpGet("removeservice/{id}/{service}")]
         public IActionResult RemoveService(int id, Services service)
         {
             var updateService = _repository.RemoveService(id, service);
 
             return Ok(updateService);
+        }
+
+
+        // Get sentence Date
+        [HttpGet("sentence/{id}")]
+        public IActionResult GetPrisonerSentence(int id)
+        {
+            var remainingDays = _repository.GetRemainingDays(id);
+            return Ok(remainingDays);
         }
     }
 }
